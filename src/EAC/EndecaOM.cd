@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Font Name="Tahoma" Size="8.25" />
+  <Class Name="Endeca.Control.EacToolkit.EacElement" Collapsed="true">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Core\EacElement.cs</FileName>
+      <HashCode>AAACAAAAAgAAAAAEAAAAAAAAAAAAAAAIBAAACAQAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Endeca.Control.EacToolkit.Component" Collapsed="true">
+    <Position X="3.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Core\Component.cs</FileName>
+      <HashCode>gIGAAgABAAAQEYCUkAGCiAEFEwQQAAEAAAAAKICQAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Endeca.Control.EacToolkit.BatchComponent" Collapsed="true">
+    <Position X="2.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Core\BatchComponent.cs</FileName>
+      <HashCode>AACAAAAAAAAAAAAAAAAACAAAAAgAAAAAAAAAAAAAAAI=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Endeca.Control.EacToolkit.ServerComponent" Collapsed="true">
+    <Position X="6" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Core\ServerComponent.cs</FileName>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Endeca.Control.EacToolkit.DgidxComponent" Collapsed="true">
+    <Position X="1.5" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Component\DgidxComponent.cs</FileName>
+      <HashCode>AAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Endeca.Control.EacToolkit.ForgeComponent" Collapsed="true">
+    <Position X="3.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Component\ForgeComponent.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Endeca.Control.EacToolkit.DgraphComponent" Collapsed="true">
+    <Position X="6" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Component\DgraphComponent.cs</FileName>
+      <HashCode>iBCAAIEACAAAQAgAAAAABBIACAJICAgAAAAAAFAAAAI=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Endeca.Control.EacToolkit.EndecaApplication" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>EndecaApplication.cs</FileName>
+      <HashCode>ALABAAAEAgASBAACAAAABhEAAAABAABIoAQAAACgBAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Endeca.Control.EacToolkit.Services.EacGateway" Collapsed="true">
+    <Position X="8" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Services\EacServices.cs</FileName>
+      <HashCode>AJAECQSAAQAQEAAQCgAAABAgEABAAJMIQAAKAAIAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Endeca.Control.EacToolkit.ComponentFactory" Collapsed="true">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Component\ComponentFactory.cs</FileName>
+      <HashCode>AABAAAQAAAAAAAgAAAAAAAARAAAFAAAAAAAAAABCAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Endeca.Control.EacToolkit.LockManager" Collapsed="true">
+    <Position X="8" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Core\LockManager.cs</FileName>
+      <HashCode>AAAAAAEIAgAAQACAAAAAgCAAAAAAAAAABAAAAAAQAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Endeca.Control.EacToolkit.Logger" Collapsed="true">
+    <Position X="8" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Logger.cs</FileName>
+      <HashCode>AAAAAAAAAAAAAYACAAAAAAAAAAAAAAEAAAAAAEAEAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Endeca.Control.EacToolkit.DgraphCluster" Collapsed="true">
+    <Position X="8" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <FileName>Component\DgraphCluster.cs</FileName>
+      <HashCode>IAAAAAEAAAAAAAgCAIAAAAAgAAAAAABAACAAIEJAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+</ClassDiagram>
