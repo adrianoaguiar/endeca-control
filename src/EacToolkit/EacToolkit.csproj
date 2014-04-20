@@ -5,18 +5,17 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{8019A7DC-A9A7-470B-95C1-79DE95D6724E}</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <ProjectGuid>{D0BF9EC2-808E-4222-9600-D035808688BB}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>EndecaControl.ControlScript</RootNamespace>
-    <AssemblyName>ControlScript</AssemblyName>
+    <RootNamespace>EndecaControl.EacToolkit</RootNamespace>
+    <AssemblyName>Indigo.Endeca.EacToolkit</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileUpgradeFlags>
     </FileUpgradeFlags>
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <OldToolsVersion>2.0</OldToolsVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -29,6 +28,7 @@
     <MapFileExtensions>true</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
     <TargetFrameworkProfile />
@@ -52,23 +52,51 @@
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject>
-    </StartupObject>
-  </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
-    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Components\ComponentFactory.cs" />
+    <Compile Include="Components\DgraphCluster.cs" />
+    <Compile Include="Components\LogServerComponent.cs" />
+    <Compile Include="Core\HostCollection.cs" />
+    <Compile Include="Core\LockManager.cs" />
+    <Compile Include="Core\BatchComponent.cs" />
+    <Compile Include="Core\Component.cs" />
+    <Compile Include="Core\ComponentCollection.cs" />
+    <Compile Include="Components\DgidxComponent.cs" />
+    <Compile Include="Components\DgraphComponent.cs" />
+    <Compile Include="Components\ForgeComponent.cs" />
+    <Compile Include="Core\Host.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="ControlScriptException.cs" />
+    <Compile Include="Services\EacServices.cs" />
+    <Compile Include="Core\EacElement.cs" />
+    <Compile Include="Services\EacGateway.cs" />
+    <Compile Include="EndecaApplication.cs" />
+    <Compile Include="EndecaApplicationException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Core\ServerComponent.cs" />
+    <Compile Include="StringAppender.cs" />
+    <Compile Include="Utils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+    <None Include="Services\eac.wsdl" />
+    <None Include="EndecaOM.cd" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Log4Net.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -86,16 +114,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\EacToolkit\EacToolkit.csproj">
-      <Project>{D0BF9EC2-808E-4222-9600-D035808688BB}</Project>
-      <Name>EacToolkit</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

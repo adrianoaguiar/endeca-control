@@ -5,10 +5,13 @@ using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using Endeca.Control.EacToolkit;
+using EndecaControl.EacToolkit.Components;
+using log4net.Repository.Hierarchy;
+using Logger = Endeca.Control.EacToolkit.Logger;
 
 #endregion
 
-namespace Endeca.Control
+namespace EndecaControl.ControlScript
 {
     internal class ControlScript
     {

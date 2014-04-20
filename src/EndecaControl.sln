@@ -1,13 +1,12 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
-MinimumVisualStudioVersion = 10.0.40219.1
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlScript", "ControlScript\ControlScript.csproj", "{8019A7DC-A9A7-470B-95C1-79DE95D6724E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{D0BF9EC2-808E-4222-9600-D035808688BB} = {D0BF9EC2-808E-4222-9600-D035808688BB}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EacToolkit", "EAC\EacToolkit.csproj", "{D0BF9EC2-808E-4222-9600-D035808688BB}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CSS_TestHarness", "CSS_TestHarness\CSS_TestHarness.csproj", "{508DDAEF-531A-49B8-95A4-60FC36B2BC8F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EacToolkit", "EacToolkit\EacToolkit.csproj", "{D0BF9EC2-808E-4222-9600-D035808688BB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +22,6 @@ Global
 		{D0BF9EC2-808E-4222-9600-D035808688BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0BF9EC2-808E-4222-9600-D035808688BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0BF9EC2-808E-4222-9600-D035808688BB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{508DDAEF-531A-49B8-95A4-60FC36B2BC8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{508DDAEF-531A-49B8-95A4-60FC36B2BC8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{508DDAEF-531A-49B8-95A4-60FC36B2BC8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{508DDAEF-531A-49B8-95A4-60FC36B2BC8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
