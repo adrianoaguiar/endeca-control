@@ -880,7 +880,7 @@ public partial class ProvisioningPortSOAPBinding : System.Web.Services.Protocols
 
     /// <remarks/>
     [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://www.endeca.com/esf/getApplication", Use = System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle = System.Web.Services.Protocols.SoapParameterStyle.Bare)]
-    [return: System.Xml.Serialization.XmlElementAttribute("application", Namespace = "  6")]
+    [return: System.Xml.Serialization.XmlElementAttribute("application", Namespace = "http://www.endeca.com/EAC/Nov2006")]
     public ApplicationType getApplication([System.Xml.Serialization.XmlElementAttribute(Namespace = "http://www.endeca.com/EAC/Nov2006")] string getApplicationInput)
     {
         object[] results = this.Invoke("getApplication", new object[] {
