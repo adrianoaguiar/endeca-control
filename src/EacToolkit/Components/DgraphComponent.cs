@@ -1,6 +1,7 @@
 #region Using Directives
 
 using System;
+using System.IO;
 using System.Net;
 using Endeca.Control.EacToolkit;
 using EndecaControl.EacToolkit.Core;
@@ -18,10 +19,8 @@ namespace EndecaControl.EacToolkit.Components
         internal bool UpdateApplied;
         private string _updateDir;
 
-        //private const string DeleteBackupIndexFolderTemplate = @"del /s /q {0}.bak\. > nul && rd /s /q {0}.bak > nul";
         private const string BackUpExistingIndexTemplate = @"move {0} {0}.bak > nul";
-       // private const string DeleteExistingBackupTemplate = @"rd /s /q {0}.bak > nul";
-        private const string MoveExistingIndexToBackupTemplate = @"move {0} {1} > nul";
+        private const string MoveFoldersTemplate = @"move {0} {1} > nul";
 
         internal DgraphComponent(string compId, string appId, HostType host) : base(compId, appId, host)
         {
@@ -57,26 +56,20 @@ namespace EndecaControl.EacToolkit.Components
             {
                 StopComponent(true);
             }
-            Logger.Debug(String.Format("{0}:{1} - Deleting backup index folder.", hostName, port));
-            CleanDir(string.Format(InputDirectory.Substring(0, InputDirectory.LastIndexOf(@"\", StringComparison.InvariantCulture)), ".bak"));
+
+            var inputFolder = InputDirectory.Substring(0, InputDirectory.LastIndexOf(@"\"));
 
             Logger.Debug(String.Format("{0}:{1} - Backing up existing index.", hostName, port));
-            BackupFiles(CustomProps["localIndexDir"], 1);
-            // BackUpExistingIndex();
+            BackupFiles(inputFolder, 1);
 
-            Logger.Debug(String.Format("{0}:{1} - Move index from the local index distribution folder.", hostName, port));
-            MoveIndexToInputFolder();
-
-            var token = CopyFiles(HostId, IndexDistributionDir, InputDirectory);
-
-            Logger.Debug(String.Format("{0}:{1} - Re-creating the local index distribution folder.", hostName, port));
-            ReCreateLocalIndexDistributionFolder();
-
-            Logger.Debug(String.Format("{0}:{1} - Attempting to start Dgraph.", hostName, port));
+            var token = CopyFiles(HostId, IndexDistributionDir, inputFolder);
 
             if (WaitUtilityComplete(token))
             {
+                Logger.Debug(String.Format("{0}:{1} - Archiving logs.", hostName, port));
                 ArchiveLog(true);
+
+                Logger.Debug(String.Format("{0}:{1} - Attempting to start Dgraph.", hostName, port));
                 Start(true);
             }
             else
@@ -85,56 +78,6 @@ namespace EndecaControl.EacToolkit.Components
             }
             IndexApplied = IsActive;
             return IndexApplied;
-        }
-
-        private void ReCreateLocalIndexDistributionFolder()
-        {
-            const string reCreateLocalIndexDistributionFolderTemplate = @"mkdir {0}";
-            var cmd = String.Format(reCreateLocalIndexDistributionFolderTemplate, IndexDistributionDir);
-            var token = EacGateway.Instance.ShellCmd(AppId, HostId, cmd);
-            if (WaitUtilityComplete(token))
-            {
-                Logger.Debug(String.Format("Re-created local index distribution folder on host {0}. Token: {1}.",
-                                           HostId, token));
-            }
-            else
-            {
-                throw new ControlScriptException(
-                    String.Format("Re-creating local index distribution failed on host {0}.", HostId));
-            }
-        }
-
-        private void MoveIndexToInputFolder()
-        {
-            var cmd = String.Format(MoveExistingIndexToBackupTemplate, IndexDistributionDir,
-                                    InputDirectory.Substring(0, InputDirectory.LastIndexOf(@"\")));
-            var token = EacGateway.Instance.ShellCmd(AppId, HostId, cmd);
-            if (WaitUtilityComplete(token))
-            {
-                Logger.Debug(String.Format("Deleted backup index folder on host {0}. Token: {1}.", HostId, token));
-            }
-            else
-            {
-                throw new ControlScriptException(
-                    String.Format("Local index distribution folder cleaning failed on host {0}.", HostId));
-            }
-        }
-
-        private void BackUpExistingIndex()
-        {
-            var inputDir = InputDirectory.Substring(0, InputDirectory.LastIndexOf(@"\", StringComparison.InvariantCulture));
-            var cmd = String.Format(BackUpExistingIndexTemplate, inputDir);
-            var token = EacGateway.Instance.ShellCmd(AppId, HostId, cmd);
-            if (WaitUtilityComplete(token))
-            {
-                Logger.Debug(String.Format("Backed up existing index on host {0}. Token: {1} & {2}.", HostId, token,
-                                           token));
-            }
-            else
-            {
-                throw new ControlScriptException(
-                    String.Format("Existing index backup failed on host {0}.", HostId));
-            }
         }
 
         /// <summary>
