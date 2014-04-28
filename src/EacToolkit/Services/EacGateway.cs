@@ -45,6 +45,10 @@ namespace EndecaControl.EacToolkit.Services
 
         #region Provisioning Service Methods
 
+        /// <summary>
+        /// Gets the applications that are defined.
+        /// </summary>
+        /// <returns>A list of applications available on the server.</returns>
         public List<ApplicationType> GetApplications()
         {
             var apps = new List<ApplicationType>();
@@ -60,17 +64,33 @@ namespace EndecaControl.EacToolkit.Services
             return apps;
         }
 
+        /// <summary>
+        /// Lists the applications that are defined.
+        /// </summary>
+        /// <returns>String array containing application IDs.</returns>
         public string[] ListApplicationIDs()
         {
             var input = new listApplicationIDsInput();
             return provisionSvc.listApplicationIDs(input);
         }
 
+        /// <summary>
+        /// Gets an application, which is composed of hosts, components, 
+        /// and scripts and identified by an application ID.
+        /// </summary>
+        /// <param name="appId">appId identifies the application to use.</param>
+        /// <returns>The application identified by the application ID.</returns>
         public ApplicationType GetApplication(string appId)
         {
             return (ApplicationType) ExecRetry(delegate { return provisionSvc.getApplication(appId); });
         }
 
+        /// <summary>
+        /// Removes the named application.
+        /// </summary>
+        /// <param name="appId">appId identifies the application to remove.</param>
+        /// <param name="forceRemove">Forces the application removal if true.</param>
+        /// <returns></returns>
         public ProvisioningWarningType[] RemoveApplication(string appId, bool forceRemove)
         {
             var param = new RemoveApplicationType();
@@ -80,9 +100,62 @@ namespace EndecaControl.EacToolkit.Services
             return provisionSvc.removeApplication(param);
         }
 
+        /// <summary>
+        /// Defines an application.
+        /// ApplicationType parameters:
+        ///     • applicationID identifies the application to use.
+        ///     • hosts is a collection of HostType objects, representing the hosts to define.
+        ///     • components is a collection of ComponentType objects (such as ForgeComponentType,
+        ///       DgraphComponentType, and so on) representing the components to define.        ///     • scripts is a collection of ScriptType objects.
+        /// </summary>
+        /// <param name="app">Application object to add.</param>
+        /// <returns></returns>
         public ProvisioningWarningType[] AddApplication(ApplicationType app)
         {
             return provisionSvc.defineApplication(app);
+        }
+
+        /// <summary>
+        /// Adds a script to an application.
+        /// </summary>
+        /// <param name="appId">appId identifies the application to use.</param>
+        /// <param name="script">script is a ScriptType object specifying the script to be updated.</param>
+        /// <returns>A ProvisioningWarningListType object, containing minor 
+        /// warnings about non-fatal provisioning problems.</returns>
+        public ProvisioningWarningType[] AddScript(string appId, ScriptType script)
+        {
+            var addScriptInput = new AddScriptType() { applicationID = appId, script = script };
+            return provisionSvc.addScript(addScriptInput);
+        }
+
+        /// <summary>
+        /// Removes a script from an application.
+        /// </summary>
+        /// <param name="appId">appId identifies the application to use.</param>
+        /// <param name="scriptId">script is a ScriptType object specifying the script to be updated.</param>
+        /// <param name="forceRemove">forceRemove indicates that the Application Controller will attempt to 
+        /// force the conditions under which the remove can take place.</param>
+        /// <returns>A ProvisioningWarningListType object, containing minor 
+        /// warnings about non-fatal provisioning problems.</returns>
+        public ProvisioningWarningType[] RemoveScript(string appId, string scriptId, bool forceRemove = false)
+        {
+            var removeScriptInput = new RemoveScriptType() { applicationID = appId, scriptID = scriptId, forceRemove = forceRemove };
+            return provisionSvc.removeScript(removeScriptInput);
+        }
+
+        /// <summary>
+        /// Updates a running script.
+        /// </summary>
+        /// <param name="appId">appId identifies the application to use.</param>
+        /// <param name="script">script is a ScriptType object specifying the script to be updated.</param>
+        /// <param name="forceUpdate">forceUpdate is a Boolean that indicates whether the Application Controller 
+        /// should force a running script to stop before attempting the update.</param>
+        /// <returns>A ProvisioningWarningListType object, containing minor 
+        /// warnings about non-fatal provisioning problems.</returns>
+        public ProvisioningWarningType[] UpdateScript(string appId, ScriptType script, bool forceUpdate = false)
+        {
+            var updateScriptInput = new UpdateScriptType() { applicationID = appId, script = script, forceUpdate = forceUpdate };
+            return provisionSvc.updateScript(updateScriptInput);
         }
 
         #endregion
