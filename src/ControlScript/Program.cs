@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using Endeca.Control.EacToolkit;
 using EndecaControl.EacToolkit.Components;
+using EndecaControl.EacToolkit.Services;
 using log4net.Repository.Hierarchy;
 using Logger = Endeca.Control.EacToolkit.Logger;
 
@@ -186,6 +187,9 @@ namespace EndecaControl.ControlScript
         {
             Logger.Info("Baseline update in progress ...");
 
+            Logger.Info("Merging web studio and dev studio configs ...");
+            EacGateway.Instance.StartScript(app.AppId, "PreForgeConfigMerge");
+
             RunForge(app.Forges[BaselineForge]);
 
             RunDgidx(app.Dgidx);
@@ -207,10 +211,10 @@ namespace EndecaControl.ControlScript
             {
                 ApplyIndex(app);
             }
-            /*Logger.Info("Sending post-forge dimensions to Web Studio ...");
-			Utils.Exec(@"%ENDECA_ROOT%\perl\5.8.3\bin\perl.exe",
-					   @"%ENDECA_ROOT%\bin\emgr_update.pl --host localhost:8888 --app_name appname --prefix appname --action set_post_forge_dims --post_forge_file %APP_ROOT%\data\forge_output\appname.dimensions.xml");
-            */
+
+            Logger.Info("Updating post-forge web studio dimensions ...");
+            EacGateway.Instance.StartScript(app.AppId, "PostForgeConfigUpdate");
+
             Logger.Info("Baseline update complete!");
         }
 

@@ -233,6 +233,16 @@ namespace EndecaControl.EacToolkit.Services
 
         #endregion
 
+        #region Script Service Methods
+
+        public void StartScript(string appId, string scriptId)
+        {
+            var scriptType = new FullyQualifiedScriptIDType {applicationID = appId, scriptID = scriptId};
+            scriptSvc.startScript(scriptType);
+        }
+
+        #endregion
+
         #region Helper methods
 
         internal static object ExecRetry(ExecRetryDelegate cmd)

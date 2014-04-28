@@ -1,0 +1,18 @@
+  <script id="PreForgeConfigMerge">
+    <log-dir>./logs/provisioned_scripts</log-dir>
+    <provisioned-script-command>./control/pre_forge_config_merge.bat</provisioned-script-command>
+    <bean-shell-script>
+      <![CDATA[ 
+      // test if data is ready for processing
+      if (Forge.isDataReady()) {
+        if (ConfigManager.isWebStudioEnabled()) {
+          // get Web Studio config, merge with Dev Studio config
+          ConfigManager.downloadWsConfig();
+          ConfigManager.fetchMergedConfig();
+        } else {
+          ConfigManager.fetchDsConfig();
+        }
+      }
+      ]]>
+    </bean-shell-script>
+  </script>

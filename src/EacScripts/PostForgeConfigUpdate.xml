@@ -1,0 +1,15 @@
+  <script id="PostForgeConfigUpdate">
+    <log-dir>./logs/provisioned_scripts</log-dir>
+    <provisioned-script-command>./control/post_forge_config_update.bat</provisioned-script-command>
+    <bean-shell-script>
+      <![CDATA[ 
+        // if Web Studio is integrated, update Web Studio with latest 
+        // dimension values
+        if (ConfigManager.isWebStudioEnabled()) {
+          ConfigManager.cleanDirs();
+          Forge.getPostForgeDimensions();
+          ConfigManager.updateWsDimensions();
+        }
+      ]]>
+    </bean-shell-script>
+  </script>
