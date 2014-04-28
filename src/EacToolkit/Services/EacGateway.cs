@@ -235,10 +235,40 @@ namespace EndecaControl.EacToolkit.Services
 
         #region Script Service Methods
 
+        /// <summary>
+        /// Starts the named script.
+        /// </summary>
+        /// <param name="appId">appId identifies the application to use.</param>
+        /// <param name="scriptId">scriptID identifies the script to use.</param>
         public void StartScript(string appId, string scriptId)
         {
             var scriptType = new FullyQualifiedScriptIDType {applicationID = appId, scriptID = scriptId};
             scriptSvc.startScript(scriptType);
+        }
+
+        /// <summary>
+        /// Stops the named script.
+        /// </summary>
+        /// <param name="appId">appId identifies the application to use.</param>
+        /// <param name="scriptId">scriptID identifies the script to use.</param>
+        public void StopScript(string appId, string scriptId)
+        {
+            var scriptType = new FullyQualifiedScriptIDType { applicationID = appId, scriptID = scriptId };
+            scriptSvc.stopScript(scriptType);
+        }
+
+        /// <summary>
+        /// Returns the status of a script.
+        /// </summary>
+        /// <param name="appId">appId identifies the application to use.</param>
+        /// <param name="scriptId">scriptID identifies the script to use.</param>
+        /// <returns>ScriptStatus object (a sub-class of the StatusType class). 
+        /// This status may be Running, NotRunning, or Failed. 
+        /// (Failure results from a failure error code or internal EAC errors).</returns>
+        public StatusType GetScriptStatus(string appId, string scriptId)
+        {
+            var scriptType = new FullyQualifiedScriptIDType { applicationID = appId, scriptID = scriptId };
+            return scriptSvc.getScriptStatus(scriptType);
         }
 
         #endregion
