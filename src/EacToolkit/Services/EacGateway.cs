@@ -249,11 +249,11 @@ namespace EndecaControl.EacToolkit.Services
         #region Sync Service Methods
 
         /// <summary>
-        ///     Creates a new flag, identified by flagID, that is associated with the named application
+        /// Creates a new flag, identified by flagID, that is associated with the named application.
         /// </summary>
-        /// <param name="appId">identifies the application to use</param>
-        /// <param name="flag">unique string identifier for this flag</param>
-        /// <returns>Trues if successfull, false if flag is already set</returns>
+        /// <param name="appId">identifies the application to use.</param>
+        /// <param name="flag">unique string identifier for this flag.</param>
+        /// <returns>Trues if successful, false if flag is already set.</returns>
         public bool SetFlag(string appId, string flag)
         {
             var flagIdType = new FullyQualifiedFlagIDType {applicationID = appId, flagID = flag};
@@ -261,10 +261,10 @@ namespace EndecaControl.EacToolkit.Services
         }
 
         /// <summary>
-        ///     Removes the named flag
+        /// Removes the named flag.
         /// </summary>
-        /// <param name="appId">identifies the application to use</param>
-        /// <param name="flag">unique string identifier for this flag</param>
+        /// <param name="appId">identifies the application to use.</param>
+        /// <param name="flag">unique string identifier for this flag.</param>
         public void RemoveFlag(string appId, string flag)
         {
             var flagIdType = new FullyQualifiedFlagIDType {applicationID = appId, flagID = flag};
@@ -272,19 +272,19 @@ namespace EndecaControl.EacToolkit.Services
         }
 
         /// <summary>
-        ///     Removes all flags in an application
+        /// Removes all flags in an application.
         /// </summary>
-        /// <param name="appId">identifies the application to use</param>
+        /// <param name="appId">identifies the application to use.</param>
         public void RemoveAllFlags(string appId)
         {
             syncSvc.removeAllFlags(appId);
         }
 
         /// <summary>
-        ///     Returns the collection of flags in an application
+        /// Returns the collection of flags in an application.
         /// </summary>
-        /// <param name="appId">identifies the application to use</param>
-        /// <returns>string array of flags</returns>
+        /// <param name="appId">identifies the application to use.</param>
+        /// <returns>string array of flags.</returns>
         public string[] GetAllFlags(string appId)
         {
             return syncSvc.listFlags(appId);

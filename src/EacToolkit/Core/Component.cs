@@ -28,8 +28,8 @@ namespace EndecaControl.EacToolkit.Core
         }
 
         /// <summary>
-        ///     Get or set a component's waiting interval in milliseconds for waiting operations.
-        ///     Deafult is 10 seconds
+        /// Get or set a component's waiting interval in milliseconds for waiting operations.
+        /// Deafult is 10 seconds
         /// </summary>
         public int WaitInterval
         {
@@ -38,7 +38,7 @@ namespace EndecaControl.EacToolkit.Core
         }
 
         /// <summary>
-        ///     Gets ComponentId
+        /// Gets ComponentId
         /// </summary>
         public string ComponentId
         {
@@ -46,18 +46,18 @@ namespace EndecaControl.EacToolkit.Core
         }
 
         /// <summary>
-        ///     Working file directory of a component.
+        /// Working file directory of a component.
         /// </summary>
         public string WorkingDir { get; set; }
 
         /// <summary>
-        ///     Log files directory for the component
+        /// Log files directory for the component
         /// </summary>
         public string LogDir { get; set; }
 
 
         /// <summary>
-        ///     Returns true if a component's status is Active.
+        /// Returns true if a component's status is Active.
         /// </summary>
         public bool IsActive
         {
@@ -79,7 +79,7 @@ namespace EndecaControl.EacToolkit.Core
         }
 
         /// <summary>
-        ///     Temporary files folder
+        /// Temporary files folder
         /// </summary>
         public string TempDir { get; set; }
 
@@ -99,12 +99,9 @@ namespace EndecaControl.EacToolkit.Core
 
         public int NumLogBackups
         {
-            get
-            {
-                if (customProps.ContainsKey(NUM_LOG_BACKUPS_PROPNAME))
-                    return (Convert.ToInt32(CustomProps[NUM_LOG_BACKUPS_PROPNAME]));
-                else
-                    return numLogBackups;
+            get {
+                return customProps.ContainsKey(NUM_LOG_BACKUPS_PROPNAME) ? 
+                    (Convert.ToInt32(CustomProps[NUM_LOG_BACKUPS_PROPNAME])) : numLogBackups;
             }
         }
 
@@ -119,7 +116,7 @@ namespace EndecaControl.EacToolkit.Core
         }
 
         /// <summary>
-        ///     Start EAC component.
+        /// Start EAC component.
         /// </summary>
         protected void StartComponent(bool waitComplete)
         {
@@ -133,7 +130,7 @@ namespace EndecaControl.EacToolkit.Core
 
 
         /// <summary>
-        ///     Sends a Stop command to EAC component and waits until it stops.
+        /// Sends a Stop command to EAC component and waits until it stops.
         /// </summary>
         protected void StopComponent(bool waitComplete)
         {
@@ -146,7 +143,7 @@ namespace EndecaControl.EacToolkit.Core
         }
 
         /// <summary>
-        ///     Returns Componet Status
+        /// Returns Componet Status
         /// </summary>
         /// <returns></returns>
         public StatusType GetStatus()
@@ -158,7 +155,7 @@ namespace EndecaControl.EacToolkit.Core
         }
 
         /// <summary>
-        ///     Pauses a thread until a component's status is Running.
+        /// Pauses a thread until a component's status is Running.
         /// </summary>
         protected virtual void WaitComplete()
         {
@@ -193,7 +190,7 @@ namespace EndecaControl.EacToolkit.Core
 
 
         /// <summary>
-        ///     Executes a shell command on a given host.
+        /// Executes a shell command on a given host.
         /// </summary>
         /// <param name="cmd">Command text.</param>
         /// <returns>A string token to check an operation status by.</returns>
