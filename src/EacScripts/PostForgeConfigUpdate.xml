@@ -1,3 +1,9 @@
+  <!--
+    ########################################################################
+    # Script to update configs post-forge. Checks if web studio integration
+    # is enabled and if so, updates it with post-forge dimension values.
+    #
+  -->
   <script id="PostForgeConfigUpdate">
     <log-dir>./logs/provisioned_scripts</log-dir>
     <provisioned-script-command>./control/post_forge_config_update.bat</provisioned-script-command>
@@ -7,8 +13,11 @@
         // dimension values
         if (ConfigManager.isWebStudioEnabled()) {
           ConfigManager.cleanDirs();
+          log.info("Cleaned directories!");
           Forge.getPostForgeDimensions();
+          log.info("Got post-forge dimensions!");
           ConfigManager.updateWsDimensions();
+          log.info("Updated web studio dimensions!");
         }
       ]]>
     </bean-shell-script>

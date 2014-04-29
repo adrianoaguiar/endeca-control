@@ -1,6 +1,7 @@
 #region Using Directives
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using Endeca.Control.EacToolkit;
 
@@ -51,17 +52,8 @@ namespace EndecaControl.EacToolkit.Services
         /// <returns>A list of applications available on the server.</returns>
         public List<ApplicationType> GetApplications()
         {
-            var apps = new List<ApplicationType>();
             var iDs = ListApplicationIDs();
-            foreach (var id in iDs)
-            {
-                var app = GetApplication(id);
-                if (app != null)
-                {
-                    apps.Add(app);
-                }
-            }
-            return apps;
+            return iDs.Select(id => GetApplication(id)).Where(app => app != null).ToList();
         }
 
         /// <summary>
@@ -82,7 +74,7 @@ namespace EndecaControl.EacToolkit.Services
         /// <returns>The application identified by the application ID.</returns>
         public ApplicationType GetApplication(string appId)
         {
-            return (ApplicationType) ExecRetry(delegate { return provisionSvc.getApplication(appId); });
+            return (ApplicationType) ExecRetry(() => provisionSvc.getApplication(appId));
         }
 
         /// <summary>
@@ -93,10 +85,12 @@ namespace EndecaControl.EacToolkit.Services
         /// <returns></returns>
         public ProvisioningWarningType[] RemoveApplication(string appId, bool forceRemove)
         {
-            var param = new RemoveApplicationType();
-            param.applicationID = appId;
-            param.forceRemove = forceRemove;
-            param.forceRemoveSpecified = true;
+            var param = new RemoveApplicationType
+                {
+                    applicationID = appId,
+                    forceRemove = forceRemove,
+                    forceRemoveSpecified = true
+                };
             return provisionSvc.removeApplication(param);
         }
 
@@ -106,7 +100,8 @@ namespace EndecaControl.EacToolkit.Services
         ///     • applicationID identifies the application to use.
         ///     • hosts is a collection of HostType objects, representing the hosts to define.
         ///     • components is a collection of ComponentType objects (such as ForgeComponentType,
-        ///       DgraphComponentType, and so on) representing the components to define.        ///     • scripts is a collection of ScriptType objects.
+        ///       DgraphComponentType, and so on) representing the components to define.
+        ///     • scripts is a collection of ScriptType objects.
         /// </summary>
         /// <param name="app">Application object to add.</param>
         /// <returns></returns>
@@ -139,7 +134,7 @@ namespace EndecaControl.EacToolkit.Services
         /// warnings about non-fatal provisioning problems.</returns>
         public ProvisioningWarningType[] RemoveScript(string appId, string scriptId, bool forceRemove = false)
         {
-            var removeScriptInput = new RemoveScriptType() { applicationID = appId, scriptID = scriptId, forceRemove = forceRemove };
+            var removeScriptInput = new RemoveScriptType { applicationID = appId, scriptID = scriptId, forceRemove = forceRemove };
             return provisionSvc.removeScript(removeScriptInput);
         }
 
@@ -164,10 +159,8 @@ namespace EndecaControl.EacToolkit.Services
 
         public StatusType GetComponentStatus(string appId, string compId)
         {
-            var component = new FullyQualifiedComponentIDType();
-            component.applicationID = appId;
-            component.componentID = compId;
-            var status = (StatusType) ExecRetry(delegate { return componentSvc.getComponentStatus(component); });
+            var component = new FullyQualifiedComponentIDType {applicationID = appId, componentID = compId};
+            var status = (StatusType) ExecRetry(() => componentSvc.getComponentStatus(component));
             return status;
         }
 
@@ -186,9 +179,7 @@ namespace EndecaControl.EacToolkit.Services
 
         public void StopComponent(string appId, string compId)
         {
-            var component = new FullyQualifiedComponentIDType();
-            component.applicationID = appId;
-            component.componentID = compId;
+            var component = new FullyQualifiedComponentIDType {applicationID = appId, componentID = compId};
             //componentSvc.stopComponent(component);
             ExecRetry(delegate
                 {
@@ -204,35 +195,37 @@ namespace EndecaControl.EacToolkit.Services
         public string StartCopyFiles(string appId, string fromHostId, string fromPath, string toHostId, string toPath,
                                      bool recursive)
         {
-            var param = new RunFileCopyType();
-            param.applicationID = appId;
-            param.fromHostID = fromHostId;
-            param.sourcePath = fromPath;
-            param.toHostID = toHostId;
-            param.destinationPath = toPath;
-            param.recursive = recursive;
-            param.recursiveSpecified = true;
+            var param = new RunFileCopyType
+                {
+                    applicationID = appId,
+                    fromHostID = fromHostId,
+                    sourcePath = fromPath,
+                    toHostID = toHostId,
+                    destinationPath = toPath,
+                    recursive = recursive,
+                    recursiveSpecified = true
+                };
             return utilSvc.startFileCopy(param);
         }
 
         public string StartBackupFiles(string appId, string hostId, string dir, int numBackups, BackupMethodType method)
         {
-            var param = new RunBackupType();
-            param.applicationID = appId;
-            param.hostID = hostId;
-            param.numBackups = numBackups;
-            param.numBackupsSpecified = true;
-            param.backupMethod = method;
-            param.backupMethodSpecified = true;
-            param.dirName = dir;
+            var param = new RunBackupType
+                {
+                    applicationID = appId,
+                    hostID = hostId,
+                    numBackups = numBackups,
+                    numBackupsSpecified = true,
+                    backupMethod = method,
+                    backupMethodSpecified = true,
+                    dirName = dir
+                };
             return utilSvc.startBackup(param);
         }
 
         public BatchStatusType GetUtilityStatus(string appId, string token)
         {
-            var param = new FullyQualifiedUtilityTokenType();
-            param.applicationID = appId;
-            param.token = token;
+            var param = new FullyQualifiedUtilityTokenType {applicationID = appId, token = token};
             var status =
                 (BatchStatusType) ExecRetry(delegate { return utilSvc.getStatus(param); });
             return status;
@@ -247,10 +240,7 @@ namespace EndecaControl.EacToolkit.Services
         /// <returns>A string token used to determine an operation status.</returns>
         public string ShellCmd(string appId, string hostId, string cmd)
         {
-            var param = new RunShellType();
-            param.applicationID = appId;
-            param.hostID = hostId;
-            param.cmd = cmd;
+            var param = new RunShellType {applicationID = appId, hostID = hostId, cmd = cmd};
             return utilSvc.startShell(param);
         }
 
@@ -266,10 +256,8 @@ namespace EndecaControl.EacToolkit.Services
         /// <returns>Trues if successfull, false if flag is already set</returns>
         public bool SetFlag(string appId, string flag)
         {
-            var flagIDType = new FullyQualifiedFlagIDType();
-            flagIDType.applicationID = appId;
-            flagIDType.flagID = flag;
-            return syncSvc.setFlag(flagIDType);
+            var flagIdType = new FullyQualifiedFlagIDType {applicationID = appId, flagID = flag};
+            return syncSvc.setFlag(flagIdType);
         }
 
         /// <summary>
@@ -279,10 +267,8 @@ namespace EndecaControl.EacToolkit.Services
         /// <param name="flag">unique string identifier for this flag</param>
         public void RemoveFlag(string appId, string flag)
         {
-            var flagIDType = new FullyQualifiedFlagIDType();
-            flagIDType.applicationID = appId;
-            flagIDType.flagID = flag;
-            syncSvc.removeFlag(flagIDType);
+            var flagIdType = new FullyQualifiedFlagIDType {applicationID = appId, flagID = flag};
+            syncSvc.removeFlag(flagIdType);
         }
 
         /// <summary>
@@ -374,12 +360,10 @@ namespace EndecaControl.EacToolkit.Services
 
         public static void CreateEacGateway(string hostName, int port)
         {
-            if (instance == null)
+            if (instance != null) return;
+            lock (typeof (EacGateway))
             {
-                lock (typeof (EacGateway))
-                {
-                    instance = new EacGateway(hostName, port);
-                }
+                instance = new EacGateway(hostName, port);
             }
         }
     }
