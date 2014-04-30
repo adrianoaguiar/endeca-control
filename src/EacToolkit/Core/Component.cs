@@ -168,7 +168,8 @@ namespace EndecaControl.EacToolkit.Core
         /// <summary>
         /// Cleans specified deirectory
         /// </summary>
-        /// <param name="dir"></param>
+        /// <param name="dir">directory to clean</param>
+        /// <returns>true if the folder was cleaned successfully</returns>
         public bool CleanDir(string dir)
         {
             Logger.Debug(String.Format("CleanDir: {0} - {1}", ComponentId, dir));

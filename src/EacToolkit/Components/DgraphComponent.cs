@@ -57,7 +57,6 @@ namespace EndecaControl.EacToolkit.Components
 
             var inputFolder = InputDirectory.Substring(0, InputDirectory.LastIndexOf(@"\"));
 
-            BackUpExistingIndex(inputFolder);
             CopyFilesAndApply(inputFolder);
             IndexApplied = IsActive;
             return IndexApplied;
@@ -141,21 +140,6 @@ namespace EndecaControl.EacToolkit.Components
             else
             {
                 Logger.Error(FailureMessage);
-            }
-        }
-
-        private void BackUpExistingIndex(string inputFolder)
-        {
-            Logger.Info(String.Format("{0} - Backing up existing index ...", ComponentId));
-            var token = BackupFiles(inputFolder, 1);
-
-            if (WaitUtilityComplete(token))
-            {
-                Logger.Debug(String.Format("{0} - Existing index backed up!", ComponentId));
-            }
-            else
-            {
-                Logger.Error(String.Format("{0} - Backing up existing index failed!", ComponentId));
             }
         }
 

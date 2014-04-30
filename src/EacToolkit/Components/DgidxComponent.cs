@@ -1,3 +1,4 @@
+using System;
 using EndecaControl.EacToolkit.Core;
 
 namespace EndecaControl.EacToolkit.Components
@@ -11,7 +12,10 @@ namespace EndecaControl.EacToolkit.Components
 
         public bool ArchiveIndex()
         {
-            var token = BackupFiles(OutputDirectory, 1);
+            int numIndexBackups = Int32.TryParse(CustomProps["numIndexBackups"], out numIndexBackups) && numIndexBackups > 0 ?
+                                numIndexBackups : 1;
+
+            var token = BackupFiles(OutputDirectory.Substring(0, OutputDirectory.LastIndexOf(@"\")), numIndexBackups);
             return WaitUtilityComplete(token);
         }
     }
