@@ -7,7 +7,6 @@ using System.IO;
 using Endeca.Control.EacToolkit;
 using EndecaControl.EacToolkit.Components;
 using EndecaControl.EacToolkit.Services;
-using log4net.Repository.Hierarchy;
 using Logger = Endeca.Control.EacToolkit.Logger;
 
 #endregion
@@ -152,12 +151,12 @@ namespace EndecaControl.ControlScript
 
         private static void PartialUpdate(EndecaApplication app)
         {
-            /// Partial updates scenario
-            /// 1. Distribute update
-            /// 2. Apply update
-            /// 2.1. Apply update
-            /// 2.2. Copy update file to cumulative updates folder
-            /// 2.3. Clean updates foder
+            // Partial updates scenario
+            // 1. Distribute update
+            // 2. Apply update
+            // 2.1. Apply update
+            // 2.2. Copy update file to cumulative updates folder
+            // 2.3. Clean updates foder
 
             Logger.Info("Partial update in progress ...");
             var forge = app.Forges[PartialForge];
@@ -196,12 +195,12 @@ namespace EndecaControl.ControlScript
 
             var cluster = new DgraphCluster(app);
 
-            /// Baseline update scenario
-            /// 1. Clean local temp folder 
-            /// 2. Clean local updates folder
-            /// 3. Distrubute index
-            /// 4. Apply index
-            /// 5. Archive updates folder
+            // Baseline update scenario
+            // 1. Clean local temp folder 
+            // 2. Clean local updates folder
+            // 3. Distrubute index
+            // 4. Apply index
+            // 5. Archive updates folder
 
             CleanFoldersAndDistributeIndex(cluster);
 
@@ -263,9 +262,12 @@ namespace EndecaControl.ControlScript
 
         private static void RunDgidx(DgidxComponent dgidx)
         {
-            //backup old index (this will automatically clear dgidx output folder)
+            // backup old index (this will automatically clear dgidx output folder)
             Logger.Info("Archiving Previous Index ...");
-            dgidx.ArchiveIndex();
+            if (!dgidx.ArchiveIndex())
+            {
+                Logger.Warn("Index backup failed!");
+            }
 
             Logger.Info("Indexing...");
             dgidx.ArchiveLog(true);
