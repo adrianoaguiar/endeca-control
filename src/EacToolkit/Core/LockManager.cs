@@ -9,9 +9,9 @@ namespace EndecaControl.EacToolkit.Core
 {
     internal class LockManager
     {
-        public const string BASELINE_DATA_READY_FLAG = "baseline_data_ready";
-        public const string PARTIAL_DATA_READY_FLAG = "partial_data_ready";
-        public const string UPDATE_FLAG = "update";
+        public const string BaselineDataReadyFlag = "baseline_data_ready";
+        public const string PartialDataReadyFlag = "partial_data_ready";
+        public const string UpdateFlag = "update";
 
 
         private readonly string appId;

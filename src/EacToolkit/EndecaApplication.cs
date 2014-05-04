@@ -126,7 +126,7 @@ namespace Endeca.Control.EacToolkit
         /// <returns>False if lock is already set</returns>
         public bool AcquireUpdateLock()
         {
-            return lockManager.AcquireLock(LockManager.UPDATE_FLAG);
+            return lockManager.AcquireLock(LockManager.UpdateFlag);
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace Endeca.Control.EacToolkit
         /// </summary>
         public void ReleaseUpdateLock()
         {
-            lockManager.ReleaseLock(LockManager.UPDATE_FLAG);
+            lockManager.ReleaseLock(LockManager.UpdateFlag);
         }
 
         /// <summary>

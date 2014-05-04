@@ -15,7 +15,6 @@ namespace EndecaControl.EacToolkit.Components
     {
         private const int WebReqTimeout = 600000; // 10 min
         internal bool IndexApplied;
-
         internal bool UpdateApplied;
         private string _updateDir;
 
