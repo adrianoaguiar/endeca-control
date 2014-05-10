@@ -223,6 +223,17 @@ namespace EndecaControl.EacToolkit.Services
             return utilSvc.startBackup(param);
         }
 
+        public string StartRollbackFiles(string appId, string hostId, string dir)
+        {
+            var param = new RunRollbackType
+                {
+                    applicationID = appId,
+                    hostID = hostId,
+                    dirName = dir
+                };
+            return utilSvc.startRollback(param);
+        }
+
         public BatchStatusType GetUtilityStatus(string appId, string token)
         {
             var param = new FullyQualifiedUtilityTokenType {applicationID = appId, token = token};

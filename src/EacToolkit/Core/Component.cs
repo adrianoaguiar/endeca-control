@@ -217,6 +217,12 @@ namespace EndecaControl.EacToolkit.Core
             return EacGateway.Instance.StartBackupFiles(AppId, HostId, dir, numBackups, BackupMethodType.Move);
         }
 
+        protected string RollbackFiles(string dir)
+        {
+            Logger.Debug(String.Format("Rolling back files: {0}-{1}", ComponentId, dir));
+            return EacGateway.Instance.StartRollbackFiles(AppId, HostId, dir);
+        }
+
         protected bool WaitUtilityComplete(string token)
         {
             Logger.Debug(String.Format("WaitUtilityComplete: {0}-{1}", ComponentId, token));

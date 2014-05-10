@@ -92,9 +92,13 @@ namespace EndecaControl.ControlScript
                     case "/apply_index":
                         ApplyIndex(app);
                         break;
+                    case "/r":
+                    case "/rollback_index":
+                        RollbackIndex(app);
+                        break;
                     default:
                         Console.WriteLine(
-                            "/b[aseline_update], /p[artial_update], /u[pdate_without_applying] or /a[pply_index expected");
+                            "/b[aseline_update], /p[artial_update], /u[pdate_without_applying], /a[pply_index] or /r[ollback_index] expected");
                         return 1;
                 }
                 Logger.Info("Script finished");
@@ -234,6 +238,22 @@ namespace EndecaControl.ControlScript
             cluster.ApplyIndex(PauseBetweenUpdates);
 
             RollLogServerLog(app);
+        }
+
+        private static void RollbackIndex(EndecaApplication app)
+        {
+            Logger.Info("Rolling back index ...");
+            if (app.Dgidx.RollbackIndex())
+            {
+                var cluster = new DgraphCluster(app);
+                CleanFoldersAndDistributeIndex(cluster);
+                TestIndex(cluster);
+                ApplyIndex(app);
+            }
+            else
+            {
+                Logger.Warn("Rolling back index failed!");
+            }
         }
 
         private static void TestIndex(DgraphCluster cluster)
