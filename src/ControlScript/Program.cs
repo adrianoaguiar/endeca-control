@@ -97,8 +97,7 @@ namespace EndecaControl.ControlScript
                         RollbackIndex(app);
                         break;
                     default:
-                        Console.WriteLine(
-                            "/b[aseline_update], /p[artial_update], /u[pdate_without_applying], /a[pply_index] or /r[ollback_index] expected");
+                        DisplayHelp();
                         return 1;
                 }
                 Logger.Info("Script finished");
@@ -120,8 +119,13 @@ namespace EndecaControl.ControlScript
 
         private static void DisplayHelp()
         {
-            Console.WriteLine(HelpTitle);
-            Console.WriteLine(HelpBody);
+            Console.WriteLine(HelpTitle + "\n");
+
+            var lines = HelpBody.Split('|');
+            foreach (var line in lines)
+            {
+                Console.WriteLine("\t" + line);
+            }
         }
 
         private static string GetDirectoryListing(string[] args, EndecaApplication app)
