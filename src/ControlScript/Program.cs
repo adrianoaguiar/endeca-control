@@ -50,7 +50,7 @@ namespace EndecaControl.ControlScript
                     app.ReleaseAllLocks();
                 };
 
-            if (args[1] == "/r")
+            if (args[1] == "/l")
             {
                 app.ReleaseAllLocks();
                 Console.WriteLine("Locks released!");
