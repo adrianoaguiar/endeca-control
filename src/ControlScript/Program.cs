@@ -197,7 +197,7 @@ namespace EndecaControl.ControlScript
             Logger.Info("Merging web studio and dev studio configs ...");
             EacGateway.Instance.StartScript(app.AppId, "PreForgeConfigMerge");
 
-            RunForge(app.Forges[BaselineForge]);
+            RunForge(app, app.Forges[BaselineForge]);
 
             RunDgidx(app.Dgidx);
 
@@ -303,8 +303,11 @@ namespace EndecaControl.ControlScript
             }
         }
 
-        private static void RunForge(ForgeComponent forge)
+        private static void RunForge(EndecaApplication app, ForgeComponent forge)
         {
+            Logger.Info("Getting forge configs ...");
+            EacGateway.Instance.StartScript(app.AppId, "ForgeConfigUpdate");
+
             Logger.Info("Forging...");
             forge.ArchiveLog(true);
             forge.CleanDirs();

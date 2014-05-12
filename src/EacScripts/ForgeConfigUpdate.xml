@@ -1,0 +1,16 @@
+  <!--
+    ########################################################################
+    # Copy configuration files to processing directory. Copies the merged 
+    # configuration files from complete_index_config folder to processing.
+    #
+  -->
+  <script id="ForgeConfigUpdate">
+    <log-dir>./logs/provisioned_scripts</log-dir>
+    <provisioned-script-command>./control/forge_config_update.bat</provisioned-script-command>
+    <bean-shell-script>
+      <![CDATA[ 
+        // fetch config files to forge input
+        Forge.getConfig();
+      ]]>
+    </bean-shell-script>
+  </script>
