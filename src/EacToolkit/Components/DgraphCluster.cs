@@ -35,7 +35,7 @@ namespace EndecaControl.EacToolkit.Components
         #region Baseline Update
 
         /// <summary>
-        ///     Distributes the index to all hosts (local and remote) in parallel
+        /// Distributes the index to all hosts (local and remote) in parallel
         /// </summary>
         public void DistributeIndex()
         {
